@@ -1,6 +1,7 @@
 import userModel from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import blacklistTokenModel from "../models/blacklist.model.js";
 /**
  * 
  * @description To register new user function
@@ -54,7 +55,7 @@ export const registerUserController = async(req,res)=>{
 }
 /**
  * 
- * @description To logi  user function
+ * @description To login  user function
  * @field_Require  email and Password
  * @access Public
  */
@@ -95,5 +96,48 @@ export const loginUserController = async(req,res)=>{
                 username:findUser.username,
                 email: findUser.email
             }
+    })
+}
+
+/**
+ * 
+ * @description To logout  user function
+ * @field_Require  Token
+ * @access Public
+ */
+
+export const logoutUserController = async(req,res)=>{
+    
+    const token = req.cookies.token;
+    
+    if(token){
+        await blacklistTokenModel.create({token});
+    }
+    res.clearCookie("token")
+    res.status(200).json({
+        success: true,
+            message: "User logout successfully",
+    })
+}
+
+/**
+ * 
+ * @description GetMeController
+ * @field_Require  
+ * @access private
+ */
+export const getMeController = async(req,res)=>{
+    const getUser = await userModel.findById(req.user.id);
+    
+    res.status(200).json({
+        success: true,
+        message: "User fatched successfully",
+        data:{
+            user: {
+                id: getUser._id,
+                username: getUser.username,
+                email: getUser.email
+            }
+        }
     })
 }
