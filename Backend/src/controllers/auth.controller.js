@@ -21,18 +21,13 @@ export const registerUserController = async(req,res)=>{
         $or:[{username}, {email}]
     })
 
-    if(isUserAlreadyExist.username == username){
+    if(isUserAlreadyExist){
         return res.status(400).json({
             success: false,
-            message: "Account already exist with this username"
+            message: "Account already exist with this username or email"
         })
     }
-    else{
-        return res.status(400).json({
-            success: false,
-            message: "Account already exist with this email"
-        })
-    }
+    
     const hash = await bcrypt.hash(password, 10)
 
     const user = await userModel.create({
@@ -50,7 +45,11 @@ export const registerUserController = async(req,res)=>{
 
     res.status(201).json({
         success: true,
-        message:"User registred successfully"
+        message:"User registred successfully",
+        data:{
+            username: user.username,
+            email: user.email
+        }
     })
 }
 /**
@@ -83,7 +82,7 @@ export const loginUserController = async(req,res)=>{
     }
 
       const token = jwt.sign(
-        {id: user._id, username: username},
+        {id: findUser._id, username: findUser.username},
         process.env.JWT_SECRET,
         {expiresIn: "1d"}
     )
@@ -94,7 +93,7 @@ export const loginUserController = async(req,res)=>{
             data:{
                 id:findUser._id,
                 username:findUser.username,
-                password: findUser.password
+                email: findUser.email
             }
     })
 }
