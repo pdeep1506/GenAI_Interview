@@ -1,16 +1,24 @@
 import React, { useState } from 'react'
 import { useNavigate, Link} from 'react-router'
 import { useAuth } from '../hooks/useAuth';
+import toast from "react-hot-toast";
 const Register = () => {
   const navigate = useNavigate();
 
    const {loading, handleRegister} = useAuth()
-      const [email, setEmail] = useState(null);
-      const [password, setPassword] = useState(null);
-      const [username, setUsername] = useState(null);
+      const [email, setEmail] = useState("");
+      const [password, setPassword] = useState("");
+      const [username, setUsername] = useState("");
    const onSubmit = async(e)=>{
         e.preventDefault();
-       const response = await handleRegister({username,email,password});
+        if( email.length ===0 || password.length ===0 || username.length===0){
+            toast.error("Username or Email or password are required.");
+        }
+        else{
+
+            const response = await handleRegister({username,email,password});
+            navigate('/login')
+        }
     }
   return (
     <main>
