@@ -50,7 +50,7 @@ export async function logout() {
 export async function getMe() {
     try{
 
-        const response = await api.post(`/api/auth/get-me`);
+        const response = await api.get(`/api/auth/get-me`);
         return response.data
 
     }
