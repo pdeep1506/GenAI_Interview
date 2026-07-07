@@ -105,6 +105,10 @@ const preparationPlanSchema = new mongoose.Schema({
 })
 
 const invterviewReportSchema = new mongoose.Schema({
+    jobTitle:{
+        required : [true, "job Title is required."],
+        type: String
+    },
     jobDescription :{
         required: [true, "Job description is required."],
         type: String

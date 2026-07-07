@@ -11,7 +11,7 @@ export const generateInterviewReportController = async(req,res)=>{
     const resumeResult = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText();
 
 const resumeText = resumeResult.text;
-    const {selfDescription, jobDescription} = req.body
+    const {selfDescription, jobDescription, jobTitle} = req.body
 
     const interViewReportByAI = await generateInterviewReport({
         resume: resumeText,
@@ -23,6 +23,7 @@ const resumeText = resumeResult.text;
 
     const interviewReport = await interviewReportModel.create({
         user : req.user.id,
+        jobTitle: jobTitle,
         resume: resumeText,
         selfDescription,
         jobDescription,

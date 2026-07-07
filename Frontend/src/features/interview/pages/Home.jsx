@@ -8,13 +8,15 @@ const Home = () => {
     const { loading, generateReport,reports } = useInterview()
     const [ jobDescription, setJobDescription ] = useState("")
     const [ selfDescription, setSelfDescription ] = useState("")
+    const [jobTitle, setJobTitle] = useState("");
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
 
     const handleGenerateReport = async () => {
         const resumeFile = resumeInputRef.current.files[ 0 ]
-        const data = await generateReport({ jobDescription, selfDescription, resumeFile })
+        
+        const data = await generateReport({ jobDescription, selfDescription, resumeFile, jobTitle })
         navigate(`/interview/${data._id}`)
     }
 
@@ -25,7 +27,7 @@ const Home = () => {
             </main>
         )
     }
-
+    
     return (
         <div className='home-page'>
 
@@ -98,6 +100,19 @@ const Home = () => {
                                 className='panel__textarea panel__textarea--short'
                                 placeholder="Briefly describe your experience, key skills, and years of experience if you don't have a resume handy..."
                             />
+                            
+                        </div>
+                          {/* Job title */}
+                        <div className='self-description'>
+                            <label className='section-label' htmlFor='selfDescription'>Job Title</label>
+                            <input
+                                onChange={(e) => { setJobTitle(e.target.value) }}
+                                id='selfDescription'
+                                name='jobTitle'
+                                className='panel__textarea panel__textarea--short'
+                                placeholder="Job Title"
+                            />
+                            
                         </div>
 
                         {/* Info Box */}
@@ -129,7 +144,7 @@ const Home = () => {
                     <ul className='reports-list'>
                         {reports.map(report => (
                             <li key={report._id} className='report-item' onClick={() => navigate(`/interview/${report._id}`)}>
-                                <h3>{report.title || 'Untitled Position'}</h3>
+                                <h3>{report.jobTitle || 'Untitled Position'}</h3>
                                 <p className='report-meta'>Generated on {new Date(report.createdAt).toLocaleDateString()}</p>
                                 <p className={`match-score ${report.matchScore >= 80 ? 'score--high' : report.matchScore >= 60 ? 'score--mid' : 'score--low'}`}>Match Score: {report.matchScore}%</p>
                             </li>
