@@ -2,7 +2,7 @@ import express from 'express';
 import  {authUser} from '../middlewares/auth.middleware.js';
 import { generateInterviewReport } from '../services/ai.services.js';
 import { uploadMiddleware } from '../middlewares/file.middleware.js';
-import { generateInterviewReportController } from '../controllers/interview.controller.js';
+import { generateInterviewReportController, getAllInterviewReportsController, getInterviewReportByIdController } from '../controllers/interview.controller.js';
 
 const interviewRouter = express.Router();
 
@@ -13,5 +13,19 @@ const interviewRouter = express.Router();
  */
 interviewRouter.post('/', authUser, uploadMiddleware.single("resume") ,generateInterviewReportController)
 
+/**
+ * @route GET /api/interview/report/:interviewId
+ * @description get interview report by interviewId.
+ * @access private
+ */
+interviewRouter.get("/report/:interviewId", authUser, getInterviewReportByIdController)
+
+
+/**
+ * @route GET /api/interview/
+ * @description get all interview reports of logged in user.
+ * @access private
+ */
+interviewRouter.get("/", authUser, getAllInterviewReportsController)
 
 export default interviewRouter;
