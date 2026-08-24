@@ -50,15 +50,13 @@ Interview-related APIs require authentication using the `authUser` middleware.
 
 ---
 
-# 🏗️ Project Architecture
+## 🏗️ Project Architecture
 
 The project consists of two applications:
 
 ```text
 genai-interview/
-
 │
-
 ├── frontend/
 │   ├── ...
 │   └── README.md
@@ -81,15 +79,10 @@ genai-interview/
 
 ```text
 Frontend
-
    │
-
    ▼
-
 Express API
-
    │
-
    ├── Authentication
    │      └── authRouter
    │
@@ -111,9 +104,9 @@ Express API
 
 ---
 
-# 🛠️ Tech Stack
+## 🛠️ Tech Stack
 
-## Frontend
+### Frontend
 
 * React
 * JavaScript
@@ -121,7 +114,7 @@ Express API
 * CSS
 * API integration with backend
 
-## Backend
+### Backend
 
 * Node.js
 * Express.js
@@ -131,29 +124,25 @@ Express API
 * Multer / file upload middleware
 * Google Gemini API
 
-## AI
+### AI
 
 * Google Gemini
 
-## Deployment
+### Deployment
 
 * Netlify
 
 ---
 
-# 🔑 Environment Variables
+## 🔑 Environment Variables
 
 Create a `.env` file inside the backend directory.
 
 ```env
 PORT=5000
-
 MONGO_PASSWORD=your_mongodb_password
-
 MONGO_URL=your_mongodb_connection_string
-
 JWT_SECRET=your_jwt_secret
-
 Google_GenAI_API_KEY=your_google_gemini_api_key
 ```
 
@@ -193,7 +182,7 @@ Authenticates an existing user.
 GET /api/auth/logout
 ```
 
-Logs out the currently authenticated user.
+
 
 ### Get Current User
 
@@ -205,17 +194,13 @@ Returns details of the currently authenticated user.
 
 This endpoint is protected.
 
-Authentication middleware:
-
-```text
-authUser
-```
+Authentication middleware: `authUser`
 
 ---
 
-# 🤖 Interview APIs
+## 🤖 Interview APIs
 
-## Generate Interview Report
+### Generate Interview Report
 
 ```http
 POST /api/interview
@@ -223,17 +208,9 @@ POST /api/interview
 
 Generates a new AI-powered interview report.
 
-### Authentication
+**Authentication:** Required (`authUser`)
 
-Required.
-
-```text
-authUser
-```
-
-### Request
-
-The request uses `multipart/form-data`.
+**Request:** uses `multipart/form-data`
 
 Example fields:
 
@@ -243,13 +220,7 @@ jobDescription
 resume
 ```
 
-The resume should be uploaded as a PDF file.
-
-The resume field is:
-
-```text
-resume
-```
+The resume should be uploaded as a PDF file, in the `resume` field.
 
 The backend uses:
 
@@ -263,55 +234,33 @@ to process the uploaded resume.
 
 ```text
 User
-
  │
-
  ├── Self Description
-
  ├── Resume PDF
-
  └── Job Description
-
           │
-
           ▼
-
       Express API
-
           │
-
           ▼
-
     Authentication
-
           │
-
           ▼
-
     Resume Processing
-
           │
-
           ▼
-
       Gemini AI
-
           │
-
           ▼
-
   Interview Report
-
           │
-
           ▼
-
        MongoDB
 ```
 
 ---
 
-## Get Interview Report
+### Get Interview Report
 
 ```http
 GET /api/interview/report/:interviewId
@@ -319,11 +268,9 @@ GET /api/interview/report/:interviewId
 
 Returns a specific interview report.
 
-### Authentication
+**Authentication:** Required
 
-Required.
-
-### Example
+Example:
 
 ```text
 GET /api/interview/report/64f123456789
@@ -331,7 +278,7 @@ GET /api/interview/report/64f123456789
 
 ---
 
-## Get All Interview Reports
+### Get All Interview Reports
 
 ```http
 GET /api/interview/
@@ -339,16 +286,14 @@ GET /api/interview/
 
 Returns all interview reports belonging to the currently authenticated user.
 
-### Authentication
-
-Required.
+**Authentication:** Required
 
 ---
 
-# 📋 API Summary
+## 📋 API Summary
 
 | Method | Endpoint                             | Authentication | Description                  |
-| ------ | ------------------------------------ | -------------- | ---------------------------- |
+| ------ | ------------------------------------ | --------------- | ---------------------------- |
 | POST   | `/api/auth/register`                 | ❌              | Register a new user          |
 | POST   | `/api/auth/login`                    | ❌              | Login user                   |
 | GET    | `/api/auth/logout`                   | ❌*             | Logout user                  |
@@ -361,7 +306,7 @@ Required.
 
 ---
 
-# 🔒 Authentication
+## 🔒 Authentication
 
 Protected routes use the `authUser` middleware.
 
@@ -371,11 +316,8 @@ Protected endpoints include:
 
 ```text
 GET  /api/auth/get-me
-
 POST /api/interview
-
 GET  /api/interview/report/:interviewId
-
 GET  /api/interview/
 ```
 
@@ -383,17 +325,11 @@ Users can only access their own interview reports.
 
 ---
 
-# 📄 Resume Upload
+## 📄 Resume Upload
 
 The interview generation endpoint accepts a PDF resume using `multipart/form-data`.
 
-The frontend sends:
-
-```text
-resume
-```
-
-as the uploaded file field.
+The frontend sends the file as the `resume` field.
 
 The backend handles the file using:
 
@@ -405,7 +341,7 @@ The uploaded resume is then processed as part of the AI interview analysis.
 
 ---
 
-# 🧠 AI Interview Generation
+## 🧠 AI Interview Generation
 
 The application integrates Google Gemini to analyze the candidate's information.
 
@@ -413,25 +349,15 @@ The AI receives relevant information such as:
 
 ```text
 Candidate Self Description
-
         +
-
 Resume
-
         +
-
 Job Description
-
         ↓
-
      Gemini AI
-
         ↓
-
 Interview Analysis
-
         ↓
-
 Structured Interview Report
 ```
 
@@ -439,7 +365,7 @@ The generated report can be stored in MongoDB and retrieved later through the in
 
 ---
 
-# 🗄️ Database
+## 🗄️ Database
 
 The application uses MongoDB to store application data.
 
@@ -455,7 +381,7 @@ Make sure your MongoDB Atlas cluster is accessible from your deployed backend.
 
 ---
 
-# 🧪 Testing the API
+## 🧪 Testing the API
 
 You can test the API using:
 
@@ -464,7 +390,7 @@ You can test the API using:
 * Insomnia
 * Frontend application
 
-Example:
+Example flow:
 
 ```text
 POST /api/auth/register
@@ -504,7 +430,7 @@ GET /api/interview/report/:interviewId
 
 ---
 
-# 📁 Important Backend Routes
+## 📁 Important Backend Routes
 
 ### Authentication Router
 
@@ -516,11 +442,8 @@ Available endpoints:
 
 ```text
 POST /api/auth/register
-
 POST /api/auth/login
-
 GET  /api/auth/logout
-
 GET  /api/auth/get-me
 ```
 
@@ -534,9 +457,7 @@ Available endpoints:
 
 ```text
 POST /api/interview
-
 GET  /api/interview/
-
 GET  /api/interview/report/:interviewId
 ```
 
