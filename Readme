@@ -56,7 +56,9 @@ The project consists of two applications:
 
 ```text
 genai-interview/
+
 │
+
 ├── frontend/
 │   ├── ...
 │   └── README.md
@@ -79,10 +81,15 @@ genai-interview/
 
 ```text
 Frontend
+
    │
+
    ▼
+
 Express API
+
    │
+
    ├── Authentication
    │      └── authRouter
    │
@@ -130,7 +137,7 @@ Express API
 
 ## Deployment
 
-* Netlify c
+* Netlify
 
 ---
 
@@ -140,12 +147,15 @@ Create a `.env` file inside the backend directory.
 
 ```env
 PORT=5000
+
 MONGO_PASSWORD=your_mongodb_password
+
 MONGO_URL=your_mongodb_connection_string
+
 JWT_SECRET=your_jwt_secret
+
 Google_GenAI_API_KEY=your_google_gemini_api_key
 ```
-
 
 > ⚠️ Never commit your `.env` file to GitHub.
 
@@ -156,8 +166,6 @@ Add this to `.gitignore`:
 .env.local
 node_modules/
 ```
-
----
 
 ---
 
@@ -255,27 +263,49 @@ to process the uploaded resume.
 
 ```text
 User
+
  │
+
  ├── Self Description
+
  ├── Resume PDF
+
  └── Job Description
+
           │
+
           ▼
+
       Express API
+
           │
+
           ▼
+
     Authentication
+
           │
+
           ▼
+
     Resume Processing
+
           │
+
           ▼
+
       Gemini AI
+
           │
+
           ▼
+
   Interview Report
+
           │
+
           ▼
+
        MongoDB
 ```
 
@@ -383,15 +413,25 @@ The AI receives relevant information such as:
 
 ```text
 Candidate Self Description
+
         +
+
 Resume
+
         +
+
 Job Description
+
         ↓
+
      Gemini AI
+
         ↓
+
 Interview Analysis
+
         ↓
+
 Structured Interview Report
 ```
 
@@ -414,8 +454,6 @@ Typical data includes:
 Make sure your MongoDB Atlas cluster is accessible from your deployed backend.
 
 ---
-
-
 
 # 🧪 Testing the API
 
@@ -478,8 +516,11 @@ Available endpoints:
 
 ```text
 POST /api/auth/register
+
 POST /api/auth/login
+
 GET  /api/auth/logout
+
 GET  /api/auth/get-me
 ```
 
@@ -493,7 +534,9 @@ Available endpoints:
 
 ```text
 POST /api/interview
+
 GET  /api/interview/
+
 GET  /api/interview/report/:interviewId
 ```
 
