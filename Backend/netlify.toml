@@ -4,6 +4,13 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+  external_node_modules = [
+    "express",
+    "serverless-http",
+    "pdf-parse",
+    "@napi-rs/canvas",
+    "@napi-rs/canvas-linux-x64-gnu"
+  ]
 
 [[redirects]]
   from = "/api/*"
