@@ -1,5 +1,4 @@
 [build]
-  base = "Backend"
   command = "npm install"
 
 [functions]
