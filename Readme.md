@@ -5,7 +5,17 @@ An AI-powered interview preparation platform that analyzes a candidate's **self-
 The application provides user authentication, resume upload, AI-powered interview analysis, and access to previously generated interview reports.
 
 ---
+## Live Demo
 
+**Frontend:**  
+https://genai-hire.netlify.app
+
+**Backend API:**  
+https://genai-interview-backend.netlify.app
+
+The application provides user authentication, resume upload, AI-powered interview analysis, and access to previously generated interview reports.
+
+---
 ## 🚀 Features
 
 ### 🔐 Authentication
