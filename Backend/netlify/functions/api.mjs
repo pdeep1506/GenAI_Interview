@@ -1,6 +1,11 @@
 import serverless from "serverless-http";
 import app from "../../src/app.js";
+import { connectDB } from "../../src/config/connectDB.js";
 
-const handler = serverless(app);
+const expressHandler = serverless(app);
 
-export { handler };
+export const handler = async (event, context) => {
+    await connectDB();
+
+    return expressHandler(event, context);
+};
