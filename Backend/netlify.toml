@@ -1,9 +1,8 @@
 [build]
-  command = "echo Building Backend"
+  command = "npm install"
 
 [functions]
   directory = "netlify/functions"
-  external_node_modules = ["express"]
   node_bundler = "esbuild"
 
 [[redirects]]

@@ -29,6 +29,6 @@ app.use('/api/interview', interviewRouter);
 app.get("/test", (req,res)=>{
     res.status(200).json({
            success: true,
-            message: "Testing Successfyll"})})
+            message: "Backend is working"})})
 
 export default app;
