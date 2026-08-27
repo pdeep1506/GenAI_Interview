@@ -5,7 +5,7 @@ import { connectDB } from "../../src/config/connectDB.js";
 const expressHandler = serverless(app);
 
 export const handler = async (event, context) => {
-  await connectDB();
+    await connectDB();
 
-  return expressHandler(event, context);
+    return expressHandler(event, context);
 };
