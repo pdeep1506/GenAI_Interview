@@ -26,7 +26,7 @@ app.use(
 app.use('/api/auth', authRouter)
 app.use('/api/interview', interviewRouter);
 
-app.get("/test", (req, res) => {
+app.get("/api/test", (req, res) => {
     res.json({
         success: true,
         message: "Backend is working"
