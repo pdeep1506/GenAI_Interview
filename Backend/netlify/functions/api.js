@@ -1,11 +1,16 @@
-import serverless from "serverless-http";
+const serverless = require("serverless-http");
 
-import app from "../../src/app.js";
+let handler;
 
-const handler = async (event, context) => {
-  await connectDB();
+exports.handler = async (event, context) => {
+  if (!handler) {
+    const { default: app } = await import("../../src/app.js");
+    const { connectDB } = await import("../../src/config/connectDB.js");
 
-  return serverless(app)(event, context);
+    await connectDB();
+
+    handler = serverless(app);
+  }
+
+  return handler(event, context);
 };
-
-export { handler };
